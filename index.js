@@ -287,9 +287,6 @@ const mergeConfig = (initialConfig,args) =>
 // Query function (use standard form for `this` context)
 const query = async function(config,..._args) {
 
-  const debug = config.debug;
-  delete config.debug;
-
   // Flatten array if nested arrays (fixes #30)
   const args = Array.isArray(_args[0]) ? flatten(_args) : _args
 
@@ -328,10 +325,8 @@ const query = async function(config,..._args) {
   ) // end params
 
   try { // attempt to run the query
+    console.log(params);
 
-    if (debug) {
-      console.log(params);      
-    }
     // Capture the result for debugging
     let result = await (isBatch ? config.RDS.batchExecuteStatement(params).promise()
       : config.RDS.executeStatement(params).promise())
