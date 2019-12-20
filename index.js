@@ -287,6 +287,9 @@ const mergeConfig = (initialConfig,args) =>
 // Query function (use standard form for `this` context)
 const query = async function(config,..._args) {
 
+  const debug = config.debug;
+  delete config.debug;
+
   // Flatten array if nested arrays (fixes #30)
   const args = Array.isArray(_args[0]) ? flatten(_args) : _args
 
@@ -326,7 +329,7 @@ const query = async function(config,..._args) {
 
   try { // attempt to run the query
 
-    if (config.debug) {
+    if (debug) {
       console.log(params);      
     }
     // Capture the result for debugging
